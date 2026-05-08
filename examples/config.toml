@@ -1,0 +1,124 @@
+# liig — Label-In-Image Generator configuration
+
+# ── Input ─────────────────────────────────────────────────────────────────────
+
+# Directory that contains the source images
+INPUT_DIR = "/mnt/noraid1/wallpaper-art/images"
+
+# Path to the CSV file with label data.
+LABELS_CSV = "/mnt/noraid1/wallpaper-art/labels.csv"
+
+# The column name (from the CSV header) whose value is the relative path to the
+# source image file.  Full path = INPUT_DIR/column_value.
+CSV_FILE_COLUMN = "FILE"
+
+# Override the CSV header row.  Must have the same number of columns as the CSV.
+# If unset, the first line of the CSV is used as the header.
+# CSV_HEADER = "ID\tFILE\tLABEL"
+
+# ── Output ────────────────────────────────────────────────────────────────────
+
+# There are two output modes.
+# When invoked with no positional args, liig will generate an image
+# for each row in the csv, and output them to OUTPUT_DIR.
+# When invoked with a positional argument, the index of the row to generate for,
+# liig will generate the image to OUTPUT_FILE, overwriting any existing file.
+
+# The directory to save output images to (when invoked without positional args).
+# OUTPUT_DIR = "output"
+
+# The file to save the output image to (when invoked with a positional arg).
+OUTPUT_FILE = "/tmp/wallpaper-art-image.png"
+
+# ── Canvas ────────────────────────────────────────────────────────────────────
+
+# The size of the output image itself.
+# CANVAS_WIDTH_PX  = 1920
+# CANVAS_HEIGHT_PX = 1080
+
+# The background color of the output image.
+CANVAS_COLOR = "#c29675"
+
+# ── Source image placement ────────────────────────────────────────────────────
+
+# Where to place the source image on the canvas.
+# Values: center | top-left | top | top-right | right |
+#         bottom-right | bottom | bottom-left | left
+IMAGE_POSITION = "center-both"
+
+# Scale images up to always fill the max dimensions.
+# SCALE_IMAGES = false
+
+# Maximum dimensions of the (possibly scaled) source image, in pixels.
+# The image is scaled proportionally to fit within both constraints.
+# It is advised to make at least one of these values smaller than
+# the canvas width/height, so there is always room for the label.
+# IMAGE_MAX_WIDTH_PX  = <CANVAS_WIDTH_PX * 0.8>
+IMAGE_MAX_HEIGHT_PX = 990
+
+# ── Label text placement ──────────────────────────────────────────────────────
+
+# Format: "<position> [relative|absolute]"  (mode defaults to "relative" if omitted)
+#   relative — text is placed adjacent to the image.
+#              For compound positions the second word
+#              names the edge of the image the text is placed on,
+#              and the first word selects where along that edge
+#              to anchor the text.
+#              For example:
+#                top-right  — top of the right edge
+#                  (text right of image, top-anchored)
+#                right-top  — right of the top edge
+#                  (text above image, right-aligned)
+#   absolute — text is placed at a fixed region of the canvas regardless of
+#              where the image sits.
+#              In absolute mode corner pairs are identical:
+#              top-right and right-top both refer to the top-right corner.
+# Positions: center |
+#            top | right-top | left-top |
+#            bottom | right-bottom | left-bottom |
+#            left | top-left | bottom-left |
+#            right | top-right | bottom-right
+# LABEL_POSITION = "top-right relative"
+
+# Up to four pixel values: "top right bottom left".
+# If left is not set, it is assumed to be the same as right.
+# If bottom is not set, it is assumed to be the same as top.
+# If only one value is provided, it is used for all four sides.
+LABEL_MARGINS_PX = "0 10"
+
+# Alignment of text within its text box: left | right | center | justified
+# LABEL_ALIGNMENT = "left"
+
+# Color of the label text
+LABEL_COLOR = "white"
+
+# Default font for label text (Pango font description, e.g. "Cousine 12").
+# Per-span fonts in LABEL_FORMAT override this.
+LABEL_FONT = "Cousine 10"
+
+# Background color painted behind the label text block
+LABEL_BACKGROUND_COLOR = "#9f311b"
+
+# Padding between the label background edge and the text content, in pixels.
+# Same CSS shorthand as LABEL_MARGINS_PX.  The background box extends this many
+# pixels beyond the text content on each side.
+# LABEL_PADDING_PX = "0"
+
+# ── Label format (Pango markup) ───────────────────────────────────────────────
+
+# The text that will be rendered in the label.
+# Use {COLUMN_NAME} placeholders (matching CSV header names).
+LABEL_FORMAT = "<span font='Cousine Bold 18'>{TITLE}</span><span font='Cousine Italic 14'>\n{AUTHOR}</span> {BORN-DIED}\n{TECHNIQUE} <span font='Cousine Italic 10'>{DATE}</span>\n{LOCATION}\n<span font='Cousine 8'>{URL}</span>"
+
+# ── liig-carousel ─────────────────────────────────────────────────────────────
+
+# The number of seconds between generations when using liig-carousel.
+# Set to -1 to disable periodic generation.
+GENERATION_INTERVAL_S = 600
+
+# How liig-carousel steps through the index pool.
+#   normal        — sequential, in the order the indices were resolved (default)
+#   shuffle       — pick a random entry each interval
+#   smart-shuffle — random pick guaranteed not to repeat any of the last
+#                   min(20, pool_size / 2) entries
+CAROUSEL_MODE = "smart-shuffle"
