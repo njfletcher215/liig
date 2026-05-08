@@ -312,6 +312,11 @@ def main() -> None:
     if not LABEL_FORMAT:
         sys.exit("liig-carousel: LABEL_FORMAT is required (set in config or pass --label-format)")
 
+    if not LABELS_CSV.exists():
+        print(f"liig-carousel: waiting for LABELS_CSV '{LABELS_CSV}' to exist...")
+        while not LABELS_CSV.exists():
+            time.sleep(2)
+
     # Build the list of liig.sh passthrough args
     liig_args: list[str] = []
     if args.config is not None:
