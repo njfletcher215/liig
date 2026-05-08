@@ -46,8 +46,11 @@ CSV_FILE_COLUMN = "FILE"
 # ── Source image placement ────────────────────────────────────────────────────
 
 # Where to place the source image on the canvas.
-# Values: center | top-left | top | top-right | right |
+# Values: center | center-both |
+#         top-left | top | top-right | right |
 #         bottom-right | bottom | bottom-left | left
+# center-both treats the image and its label as a single unit and centres
+# that unit on the canvas, rather than centering the image alone.
 # IMAGE_POSITION = "center"
 
 # Scale images up to always fill the max dimensions.
@@ -62,21 +65,21 @@ CSV_FILE_COLUMN = "FILE"
 
 # ── Label text placement ──────────────────────────────────────────────────────
 
-# Format: "<position> [relative|absolute]"  (mode defaults to "relative" if omitted)
-#   relative — text is placed adjacent to the image.
-#              For compound positions the second word
-#              names the edge of the image the text is placed on,
-#              and the first word selects where along that edge
-#              to anchor the text.
-#              For example:
-#                top-right  — top of the right edge
-#                  (text right of image, top-anchored)
-#                right-top  — right of the top edge
-#                  (text above image, right-aligned)
-#   absolute — text is placed at a fixed region of the canvas regardless of
-#              where the image sits.
-#              In absolute mode corner pairs are identical:
-#              top-right and right-top both refer to the top-right corner.
+# Format: "<position> [relative|absolute|relative-inner]"  (mode defaults to "relative" if omitted)
+#   relative       — text is placed adjacent to the image.
+#                    For compound positions the second word names the edge of
+#                    the image the text is placed on, and the first word
+#                    selects where along that edge to anchor the text.
+#                    For example:
+#                      top-right  — top of the right edge
+#                        (text right of image, top-anchored)
+#                      right-top  — right of the top edge
+#                        (text above image, right-aligned)
+#   absolute       — text is placed at a fixed region of the canvas regardless
+#                    of where the image sits.  Corner pairs are identical:
+#                    top-right and right-top both refer to the top-right corner.
+#   relative-inner — like relative, but the text is placed inside the image
+#                    bounds rather than adjacent to it.
 # Positions: center |
 #            top | right-top | left-top |
 #            bottom | right-bottom | left-bottom |
@@ -90,7 +93,7 @@ CSV_FILE_COLUMN = "FILE"
 # If only one value is provided, it is used for all four sides.
 # LABEL_MARGINS_PX = "10"
 
-# Alignment of text within its text box: left | right | center | justified
+# Alignment of text within its text box: left | right | center
 # LABEL_ALIGNMENT = "left"
 
 # Whether to justify text (distribute words to fill the full line width): true | false
@@ -109,7 +112,7 @@ CSV_FILE_COLUMN = "FILE"
 # Padding between the label background edge and the text content, in pixels.
 # Same CSS shorthand as LABEL_MARGINS_PX.  The background box extends this many
 # pixels beyond the text content on each side.
-# LABEL_PADDING_PX = "0"
+# LABEL_PADDING_PX = "10"
 
 # Maximum width of the label text box in pixels.  Text wraps at this width even
 # if more canvas space is available.  The canvas edge still acts as a hard cap.
