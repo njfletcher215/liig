@@ -16,6 +16,10 @@ CSV_FILE_COLUMN = "FILE"
 # If unset, the first line of the CSV is used as the header.
 # CSV_HEADER = "ID\tFILE\tLABEL"
 
+# Field delimiter character.  Auto-detected from the first line if unset
+# (prefers tab if both tab and comma are present).
+# CSV_DELIMITER = "\t"
+
 # ── Output ────────────────────────────────────────────────────────────────────
 
 # There are two output modes.
@@ -89,6 +93,9 @@ CSV_FILE_COLUMN = "FILE"
 # Alignment of text within its text box: left | right | center | justified
 # LABEL_ALIGNMENT = "left"
 
+# Whether to justify text (distribute words to fill the full line width): true | false
+# LABEL_JUSTIFY = "false"
+
 # Color of the label text
 # LABEL_COLOR = "black"
 
@@ -103,6 +110,10 @@ CSV_FILE_COLUMN = "FILE"
 # Same CSS shorthand as LABEL_MARGINS_PX.  The background box extends this many
 # pixels beyond the text content on each side.
 # LABEL_PADDING_PX = "0"
+
+# Maximum width of the label text box in pixels.  Text wraps at this width even
+# if more canvas space is available.  The canvas edge still acts as a hard cap.
+# LABEL_MAX_WIDTH_PX = ""
 
 # ── Label format (Pango markup) ───────────────────────────────────────────────
 
